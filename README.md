@@ -6,11 +6,29 @@
 
 ## 它做什么：5 阶段 + 5 道人闸
 
+```mermaid
+flowchart TD
+    IN([一段话描述]) --> P0[P0 需求澄清<br/>agent 自动起草 spec / 红线 / 旅程]
+    P0 --> G1{{人闸① 澄清<br/>缺关键信息才问}}
+    G1 --> P1[P1 HTML 原型<br/>agent 出全页面 HTML]
+    P1 --> G2{{★ 人闸② 方向确认<br/>就是这个感觉 才放行}}
+    G2 -->|要改| P1
+    G2 -->|冻结基线| P2[P2 脚手架骨架<br/>HTML→真小程序 + 循环基建 + 视觉保真锁]
+    P2 --> G3{{人闸③ 骨架验收<br/>默认略过}}
+    G3 --> P3[P3 自动迭代循环<br/>发现→对抗校验→修→锁测试→收敛 · 长跑]
+    P3 --> G4{{人闸④ 产品取舍 / 主观 UI / 文案<br/>打包 + 预填默认递人}}
+    G4 --> P3
+    P3 --> P4[P4 真机 · 部署 · 上线<br/>agent 备三份清单]
+    P4 --> G5{{人闸⑤ 真机验证 + 平台提审<br/>机器物理碰不到}}
+    G5 --> OUT([可上线])
+
+    classDef auto fill:#e6f0ff,stroke:#2b7de9,color:#1a1a1a;
+    classDef gate fill:#fff4e6,stroke:#e5884d,color:#1a1a1a;
+    class P0,P1,P2,P3,P4 auto;
+    class G1,G2,G3,G4,G5 gate;
 ```
-一段话 → P0 需求澄清 → [人闸①澄清] → P1 HTML原型 → [人闸②方向确认·核心]
-       → P2 脚手架骨架 → [人闸③略过] → P3 自动迭代循环 → [人闸④产品取舍]
-       → P4 真机·部署·上线 → [人闸⑤真机+提审] → 可上线
-```
+
+> 蓝框 = agent 全自动阶段；橙框 = 人闸（只做判断，不做劳动）。
 
 **只有 5 类事必须人来**：① 方向对不对 ② 产品/业务取舍 ③ 真机验证 ④ 真实数据/语料 ⑤ 部署/平台提审。其余每个阶段由 agent 自动做到"人闸前一步"，并把闸门做成一键判断。
 
@@ -19,7 +37,7 @@
 克隆到你的 Claude Code 个人技能目录（仓库根即技能本体）：
 
 ```bash
-git clone <this-repo> ~/.claude/skills/miniprogram-sop
+git clone https://github.com/youxiyin/claude-skill-miniprogram-sop ~/.claude/skills/miniprogram-sop
 ```
 
 下次会话即可用 `/miniprogram-sop <你的小程序想法>` 触发；或直接说"帮我做个 XX 小程序 / 先出个 HTML 原型看看"。
@@ -46,3 +64,6 @@ miniprogram-sop/
 
 ---
 蒸馏自「健康管家」(医疗) 与一套批发电商项目两套实战自动迭代循环。P3 循环引擎运行时不含在本 skill 内，脚手架时从成熟项目的 `automation/` 复制骨架。
+
+## License
+[MIT](LICENSE) © 2026 youxiyin
