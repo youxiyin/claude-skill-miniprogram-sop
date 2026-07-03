@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+  P1 HTML 原型外壳 · 复制此文件为 prototype/<页面名>.html，改 <title>、顶栏标题、.screen 内容、tab 高亮。
+  设计令牌集中在 :root，改配色/字号只动这里，保证全站一致。
+  ⚠ 保真约束：只用能干净映射到 wxml 的结构(view/text/image/scroll-view/button/input)，
+     别用 canvas 特效/复杂动画/grid 高级布局，否则 P2 转 wxml 必走样。
+     大字号适老化版：给 <html> 加 class="a11y-large"。
+-->
+<html lang="zh-CN" class="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>页面名 · 原型</title>
+<style>
+  :root{
+    /* ——— 设计令牌（改主题只动这里）——— */
+    --color-primary:#2b7de9;        /* 主色/CTA */
+    --color-bg:#f4f6f8;             /* 页面底色 */
+    --color-surface:#ffffff;        /* 卡片 */
+    --color-text:#1a1a1a;           /* 主文字 */
+    --color-text-weak:#8a8f99;      /* 次文字 */
+    --color-line:#e8ebef;           /* 分隔线 */
+    --color-danger:#e5484d;
+    --radius:12px;
+    --gap:16px;
+    --font-base:16px;               /* 基础字号；适老化版放大 */
+    --tap-min:44px;                 /* 最小触控盒（适老化下限）*/
+  }
+  html.a11y-large{ --font-base:20px; --tap-min:52px; }        /* 适老化大字号版 */
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{background:#d9dde3;display:flex;justify-content:center;padding:24px;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  /* 手机边框 375×812（iPhone 逻辑分辨率）*/
+  .phone{width:375px;height:812px;background:var(--color-bg);border-radius:40px;overflow:hidden;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;flex-direction:column}
+  .statusbar{height:44px;flex:0 0 44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:13px;color:var(--color-text);font-weight:600}
+  .navbar{height:44px;flex:0 0 44px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;color:var(--color-text);background:var(--color-surface);border-bottom:1px solid var(--color-line)}
+  .screen{flex:1;overflow-y:auto;padding:var(--gap);font-size:var(--font-base);color:var(--color-text)}
+  .tabbar{height:56px;flex:0 0 56px;display:flex;background:var(--color-surface);border-top:1px solid var(--color-line)}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--color-text-weak);min-height:var(--tap-min);text-decoration:none}
+  .tab.active{color:var(--color-primary)}
+  .tab .ico{font-size:20px;line-height:1}
+  /* ——— 常用可映射组件 ——— */
+  .card{background:var(--color-surface);border-radius:var(--radius);padding:var(--gap);margin-bottom:var(--gap)}
+  .row{display:flex;align-items:center;justify-content:space-between;min-height:var(--tap-min)}
+  .btn{display:block;width:100%;min-height:var(--tap-min);background:var(--color-primary);color:#fff;border:none;border-radius:var(--radius);font-size:var(--font-base);font-weight:600}
+  .weak{color:var(--color-text-weak)}
+  .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:60%;color:var(--color-text-weak);gap:12px}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>●●● 📶 🔋</span></div>
+    <div class="navbar">页面标题</div>
+
+    <!-- ↓↓↓ 页面内容写这里（每页替换）↓↓↓ -->
+    <div class="screen">
+      <div class="card">
+        <div class="row"><span>示例行</span><span class="weak">›</span></div>
+      </div>
+      <button class="btn">主操作 CTA</button>
+
+      <!-- 空态示例（另出一版把 .screen 换成这个）
+      <div class="empty"><div style="font-size:40px">📭</div><div>还没有内容</div></div>
+      -->
+    </div>
+    <!-- ↑↑↑ 页面内容 ↑↑↑ -->
+
+    <!-- 底 tab（改 active 高亮当前页）-->
+    <div class="tabbar">
+      <a class="tab active" href="#"><span class="ico">🏠</span>首页</a>
+      <a class="tab" href="#"><span class="ico">📋</span>列表</a>
+      <a class="tab" href="#"><span class="ico">👤</span>我的</a>
+    </div>
+  </div>
+</body>
+</html>
